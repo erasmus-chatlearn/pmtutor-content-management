@@ -1,0 +1,212 @@
+# ChatLearn Python Topic Management Tool
+The tool contains a parser for parsing any topic configuration files using the ChatLearn Excel template into 
+a valid JSON object, and a uploader for uploading the parsed JSON to the database.
+
+## Software prerequisites 
+* Python 3.8.10 or 3.9.13: This tool works with Python 3.8 and 3.9 in both Windows and Ubuntu. It has not been tested with the latest Python or in iOS.
+* Python virtualenv package
+
+## For Windows
+### Create a virtual environment and install requirements
+It is a good practice to work on a Python project in its own virtual environment, 
+so installing and uninstalling of packages do not interfere with other Python projects in the same machine.
+
+For the first time, navigate to the tool's root folder and create a virtual environment in a command prompt or similar tool:
+```
+python -m venv env
+```
+
+### Activate the virtual environment
+```
+env\Scripts\activate
+```
+
+After successfully activating the environment, you should see "(env)" appeared as below in the command prompt:
+```
+(env) C:\your\path\to\the\tool>
+```
+
+### Install requirements
+``` 
+pip install -r requirements.txt
+```
+
+### Before using the scripts
+* Create an "output" directory in the project's root level, the parsed result will be stored there.
+* Create a ".env" file in the project's root level with the following key-value pairs:
+```
+CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
+CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
+DATABASE_NAME="<The name of subject database>"
+```
+
+### Parsing a Topic Configuration Excel file to JSON
+Once setup, you can parse a valid topic configuration file into a required JSON object with the command below:
+```
+python src\excel_to_json_parser.py <path\file_name>.xlsx
+```
+
+The parsed result will be stored in the output folder you created.
+
+### Upload a parsed Topic Configuration JSON to Topic database
+Having the parsed result ready, you can upload it to the database. It will check if there are existing documents using the
+same partition key, e.g., 'uo-evm'. If there are existing documents, it will ask you if you want to replace them or abort
+the uploading.
+
+For documents which are not selfAssessmentStatement, it replaces the documents by first deleting them and creating them again.
+For documents which are selfAssessmentStatement, it either creates new documents if they do not exist in the database or 
+update the documents.
+
+Nothing will change if you wish to abort the process.
+
+```
+python src\topic_uploader.py output\parsed-result.json
+```
+
+### Parsing a Survey Excel file to JSON
+Once setup, you can parse a valid survey file into a required JSON object with the command below:
+```
+python src\survey_parser.py <path\file_name>.xlsx
+```
+
+The parsed result will be stored in the output folder you created.
+
+### Upload a parsed Survey JSON to Topic database
+Having the parsed result ready, you can upload it to the database. It will check if there are existing documents using the
+same partition key, e.g., 'chatlearn-preUsageSurvey'. If there is no documents using the partition key, it will ask you
+if you want to create a new survey document. If there is a document with the same id, it will ask you if you want to update
+the document. If there is an active survey of different id, it will ask you if you want to create a new one or update the
+current active one.
+
+Nothing will change if you wish to abort the process.
+
+```
+python src\survey_uploader.py output\parsed-survey.json
+```
+
+### Parsing a Case Study Configuration Excel file to JSON
+Once setup, you can parse a valid case study configuration file into a required JSON object with the command below:
+```
+python src\case_study_parser.py <path\file_name>.xlsx
+```
+
+The parsed result will be stored in the output folder you created.
+
+### Uploading a Case Study JSON to Topic database
+Once successfully parsed the case study into a json consists of documents, 
+you can run the command below to upload the json to the database.
+```
+python src\case_study_uploader.py output\parsed-case-study-docs.json
+```
+
+ATTENTION: 
+- Since only minimal validation has been made to the uploader, 
+make sure only use the json file parsed from the case study parser!
+- Use 'topics-sandbox' for development and testing
+
+
+### Deactivate the virtual environment
+It is a good practice to exit the virtual environment after you have done with the tool. Simply type in the console:
+```
+deactivate
+```
+The "(env)" will disappear.
+
+## For Ubuntu
+### Installation
+Install requirements:
+``` 
+pip install -r requirements.txt
+```
+
+### Before using the scripts
+* Create an "output" directory in the project's root level, the parsed result will be stored there.
+* Create a ".env" file in the project's root level with the following key-value pairs:
+```
+CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
+CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
+DATABASE_NAME="<The name of subject database>"
+```
+
+### Parsing a Topic Configuration Excel file to JSON
+Once setup, you can parse a valid template into a required JSON object with the command below:
+
+If you have python3 set as default:
+```
+python src/excel_to_json_parser.py <path/file_name>.xlsx
+```
+else:
+```
+python3 src/excel_to_json_parser.py <path/file_name>.xlsx
+```
+The parsed result will be stored in the output folder.
+
+### Upload a parsed Topic Configuration JSON to Topic database
+Having the parsed result ready, you can upload it to the database. It will check if there are existing documents using the
+same partition key, e.g., 'uo-evm'. If there are existing documents, it will ask you if you want to replace them or abort
+the uploading.
+
+For documents which are not selfAssessmentStatement, it replaces the documents by first deleting them and creating them again.
+For documents which are selfAssessmentStatement, it either creates new documents if they do not exist in the database or
+update the documents.
+
+Nothing will change if you wish to abort the process.
+
+If you have python3 set as default:
+```
+python src/topic_uploader.py output/parsed_result.json
+```
+else:
+```
+python3 src/topic_uploader.py output/parsed_result.json
+```
+
+### Parsing a Survey Excel file to JSON
+Once setup, you can parse a valid survey file into a required JSON object with the command below:
+```
+python src/survey_parser.py <path/file_name>.xlsx
+```
+
+The parsed result will be stored in the output folder you created.
+
+### Upload a parsed Survey JSON to Topic database
+Having the parsed result ready, you can upload it to the database. It will check if there are existing documents using the
+same partition key, e.g., 'chatlearn-preUsageSurvey'. If there is no documents using the partition key, it will ask you
+if you want to create a new survey document. If there is a document with the same id, it will ask you if you want to update
+the document. If there is an active survey of different id, it will ask you if you want to create a new one or update the
+current active one.
+
+Nothing will change if you wish to abort the process.
+
+```
+python src/survey_uploader.py output/parsed-survey.json
+```
+
+### Parsing a Case Study Configuration Excel file to JSON
+Once setup, you can parse a valid case study configuration file into a required JSON object with the command below:
+```
+python src/case_study_parser.py <path\file_name>.xlsx
+```
+or 
+```
+python3 src/case_study_parser.py <path\file_name>.xlsx
+```
+The parsed result will be stored in the output folder you created.
+
+### Uploading a Case Study JSON to Topic database
+Once successfully parsed the case study into a json consists of documents,
+you can run the command below to upload the json to the database.
+```
+python src/case_study_uploader.py output/parsed-case-study-docs.json
+```
+or 
+```
+python3 src/case_study_uploader.py output/parsed-case-study-docs.json
+```
+ATTENTION:
+- Since only minimal validation has been made to the uploader,
+  make sure only use the json file parsed from the case study parser!
+- Use 'topics-sandbox' for development and testing
+
+## How to contribute to development?
+Please create and work on your branch and create a merge request.
