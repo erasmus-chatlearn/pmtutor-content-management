@@ -3,7 +3,7 @@ The tool contains a parser for parsing any topic configuration files using the C
 a valid JSON object, and a uploader for uploading the parsed JSON to the database.
 
 ## Software prerequisites 
-* Python 3.8.10 or 3.9.13: This tool works with Python 3.8 and 3.9 in both Windows and Ubuntu. It has not been tested with the latest Python or in iOS.
+* Python 3.10
 * Python virtualenv package
 
 ## For Windows
@@ -37,8 +37,17 @@ pip install -r requirements.txt
 ```
 CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
 CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
-DATABASE_NAME="<The name of subject database>"
+DATABASE_NAME="<The name of an existing topic database>"
 ```
+
+### Creating a cloudant database for uploading the configurations of learning topics, case studies, and self-assessment surveys
+If you do not have any topic databases or want to create a new one, use this script.
+```
+# Replace "new-database-name" with your intended name
+python src\create_learning_content_database.py "new-database-name"
+```
+The script will return an error message and abort if the name exists already.
+If the name is valid and has not been used by other databases, it will create a new database accordingly and print the new database information after creation.
 
 ### Parsing a Topic Configuration Excel file to JSON
 Once setup, you can parse a valid topic configuration file into a required JSON object with the command below:
@@ -125,8 +134,17 @@ pip install -r requirements.txt
 ```
 CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
 CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
-DATABASE_NAME="<The name of subject database>"
+DATABASE_NAME="<The name of an existing topic database>"
 ```
+
+### Creating a cloudant database for uploading the configurations of learning topics, case studies, and self-assessment surveys
+If you do not have any topic databases or want to create a new one, use this script.
+```
+# Replace "new-database-name" with your intended name
+python src/create_learning_content_database.py "new-database-name"
+```
+The script will return an error message and abort if the name exists already.
+If the name is valid and has not been used by other databases, it will create a new database accordingly and print the new database information after creation. 
 
 ### Parsing a Topic Configuration Excel file to JSON
 Once setup, you can parse a valid template into a required JSON object with the command below:

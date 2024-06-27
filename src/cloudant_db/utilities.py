@@ -31,6 +31,20 @@ def print_all_dbs_info():
     print(json.dumps(response, indent=2))
 
 
+def create_cloudant_database(new_db_name, is_partitioned):
+    return service.put_database(db=new_db_name, partitioned=is_partitioned).get_result()
+
+
+def get_database_info(db_name):
+    return service.get_database_information(db=db_name).get_result()
+
+
+def create_search_index(db_name, design_doc_name, index_name, index_fields, is_partitioned_index):
+    index = {'fields': index_fields}
+    return service.post_index(
+        db=db_name, ddoc=design_doc_name, name=index_name, index=index, type='json', partitioned=is_partitioned_index)
+
+
 def post_documents_to_topic_db(db_name, docs) -> []:
     response = service.post_bulk_docs(
         db=db_name,
