@@ -71,7 +71,7 @@ def check_required_columns_have_values_by_regex(
         result.is_valid = True
         result.message = sheet_name + ' does not have required columns as no columns match the pattern: ' + regex_pattern
         return result
-    for (column_name, column_data) in filtered_columns.iteritems():
+    for (column_name, column_data) in filtered_columns.items():
         if check_first_row_only:
             if pd.isnull(column_data[0]):
                 result.message = ('The first row in required column ' + column_name + ' in ' + sheet_name +
