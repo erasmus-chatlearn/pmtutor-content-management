@@ -49,7 +49,7 @@ def main():
 
         sys.exit('\nCase Study Uploader is completed.')
     except (AssertionError, AttributeError) as e:
-        print(f'\n\nSurvey Uploader has aborted due to {e.__class__.__name__}: {e}')
+        print(f'\n\nCase Study Uploader has aborted due to {e.__class__.__name__}: {e}')
         sys.exit()
 
 

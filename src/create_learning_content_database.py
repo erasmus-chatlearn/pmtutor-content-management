@@ -3,6 +3,7 @@ import json
 from cloudant_db.utilities import create_cloudant_database, create_search_index, get_database_info
 from ibm_cloud_sdk_core import ApiException
 
+
 def main():
     args = parse_args()
     db_name = args.new_database_name
