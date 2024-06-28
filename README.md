@@ -1,10 +1,11 @@
-# ChatLearn Python Topic Management Tool
-The tool contains a parser for parsing any topic configuration files using the ChatLearn Excel template into 
-a valid JSON object, and a uploader for uploading the parsed JSON to the database.
+# Erasmus+ ChatLearn PMTutor Content Management Tool Set
+The tool set contains scripts for managing content of PMTutor: mainly parsers and uploaders for parsing and uploading 
+Excel configurations of learning topics, case studies, and self-assessment surveys.
 
-## Software prerequisites 
+## Prerequisites 
 * Python 3.10
 * Python virtualenv package
+* IBM Cloudant service
 
 ## For Windows
 ### Create a virtual environment and install requirements
