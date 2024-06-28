@@ -37,11 +37,11 @@ pip install -r requirements.txt
 ```
 CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
 CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
-DATABASE_NAME="<The name of an existing topic database>"
+DATABASE_NAME="<The name of an existing target database, remember to check it before uploading your content!>"
 ```
 
 ### Creating a cloudant database for uploading the configurations of learning topics, case studies, and self-assessment surveys
-If you do not have any topic databases or want to create a new one, use this script.
+If you do not have any topic databases or want to create a new one (e.g., for testing purpose), use this script.
 ```
 # Replace "new-database-name" with your intended name
 python src\create_learning_content_database.py "new-database-name"
@@ -52,7 +52,7 @@ If the name is valid and has not been used by other databases, it will create a 
 ### Parsing a Topic Configuration Excel file to JSON
 Once setup, you can parse a valid topic configuration file into a required JSON object with the command below:
 ```
-python src\excel_to_json_parser.py <path\file_name>.xlsx
+python src\learning_topic_parser.py <path\file_name>.xlsx
 ```
 
 The parsed result will be stored in the output folder you created.
@@ -69,7 +69,7 @@ update the documents.
 Nothing will change if you wish to abort the process.
 
 ```
-python src\topic_uploader.py output\parsed-result.json
+python src\learning_topic_uploader.py output\parsed-result.json
 ```
 
 ### Parsing a Survey Excel file to JSON
@@ -111,7 +111,7 @@ python src\case_study_uploader.py output\parsed-case-study-docs.json
 ATTENTION: 
 - Since only minimal validation has been made to the uploader, 
 make sure only use the json file parsed from the case study parser!
-- Use 'topics-sandbox' for development and testing
+- Create and use a development database e.g., 'topics-sandbox' for development and testing
 
 
 ### Deactivate the virtual environment
@@ -134,11 +134,11 @@ pip install -r requirements.txt
 ```
 CLOUDANT_URL="<You can find it from the Cloudant service instance > Service credential>"
 CLOUDANT_APIKEY="<You can find it from the Cloudant service instance > Service credential>"
-DATABASE_NAME="<The name of an existing topic database>"
+DATABASE_NAME="<The name of an existing target database, remember to check it before uploading your content!>"
 ```
 
 ### Creating a cloudant database for uploading the configurations of learning topics, case studies, and self-assessment surveys
-If you do not have any topic databases or want to create a new one, use this script.
+If you do not have any topic databases or want to create a new one (e.g., for testing purpose), use this script.
 ```
 # Replace "new-database-name" with your intended name
 python src/create_learning_content_database.py "new-database-name"
@@ -151,11 +151,11 @@ Once setup, you can parse a valid template into a required JSON object with the 
 
 If you have python3 set as default:
 ```
-python src/excel_to_json_parser.py <path/file_name>.xlsx
+python src/learning_topic_parser.py <path/file_name>.xlsx
 ```
 else:
 ```
-python3 src/excel_to_json_parser.py <path/file_name>.xlsx
+python3 src/learning_topic_parser.py <path/file_name>.xlsx
 ```
 The parsed result will be stored in the output folder.
 
@@ -172,11 +172,11 @@ Nothing will change if you wish to abort the process.
 
 If you have python3 set as default:
 ```
-python src/topic_uploader.py output/parsed_result.json
+python src/learning_topic_uploader.py output/parsed_result.json
 ```
 else:
 ```
-python3 src/topic_uploader.py output/parsed_result.json
+python3 src/learning_topic_uploader.py output/parsed_result.json
 ```
 
 ### Parsing a Survey Excel file to JSON
@@ -224,7 +224,7 @@ python3 src/case_study_uploader.py output/parsed-case-study-docs.json
 ATTENTION:
 - Since only minimal validation has been made to the uploader,
   make sure only use the json file parsed from the case study parser!
-- Use 'topics-sandbox' for development and testing
+- Create and use a development database e.g., 'topics-sandbox' for development and testing
 
-## How to contribute to development?
-Please create and work on your branch and create a merge request.
+## License
+MIT
