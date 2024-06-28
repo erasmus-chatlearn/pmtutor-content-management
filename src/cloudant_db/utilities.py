@@ -66,9 +66,9 @@ def create_bulk_docs_from_docs_result_rows_for_deletion(docs_result_rows) -> Bul
     bulk_docs = BulkDocs(docs=[])
     for row in docs_result_rows['rows']:
         doc = Document(
-            id=row['id'],
-            rev=row['value']['rev'],
-            deleted=True
+            _id=row['id'],
+            _rev=row['value']['rev'],
+            _deleted=True
         )
         bulk_docs.docs.append(doc)
     return bulk_docs
@@ -93,17 +93,17 @@ def create_bulk_docs_for_deletion_from_database_result(db_result) -> BulkDocs:
     if 'rows' in db_result:
         for row in db_result['rows']:
             doc = Document(
-                id=row['id'],
-                rev=row['value']['rev'],
-                deleted=True
+                _id=row['id'],
+                _rev=row['value']['rev'],
+                _deleted=True
             )
             bulk_docs.docs.append(doc)
     if 'docs' in db_result:
         for document in db_result['docs']:
             doc = Document(
-                id=document['_id'],
-                rev=document['_rev'],
-                deleted=True
+                _id=document['_id'],
+                _rev=document['_rev'],
+                _deleted=True
             )
             bulk_docs.docs.append(doc)
     return bulk_docs
